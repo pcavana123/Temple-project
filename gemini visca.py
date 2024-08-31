@@ -16,9 +16,13 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Connect to the camera
 sock.connect((ip_address, port))
 
+def pack_bytes(bytestring):
+    bytestring = bytestring.replace(" ", "")
+    return bytes.fromhex(bytestring)
+
 # Function to send VISCA commands
 def send_visca_command(command):
-    command_bytes = bytes(command, 'utf-8')
+    command_bytes = pack_bytes(command)
     sock.sendall(command_bytes)
 
 # Example VISCA commands:
